@@ -1,10 +1,15 @@
-import styled from "styled-components"
-import { colors, devices } from "./globalStyles"
+import styled from 'styled-components'
+import { colors, devices } from './globalStyles'
 
 export const Title = styled.h2`
   text-align: center;
   margin-bottom: 0;
   color: ${colors.text};
+  text-transform: uppercase;
+  @media ${devices.tablet} {
+    font-size: 2.5em;
+    margin-bottom: revert;
+  }
 `
 
 export const TasksListWrapper = styled.section`
@@ -13,6 +18,9 @@ export const TasksListWrapper = styled.section`
   gap: 1em;
   grid-template-columns: 100%;
   padding: 2em;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
   @media ${devices.mobileL} {
     grid-template-columns: 49% 49%;
     column-gap: 2%;
@@ -21,14 +29,28 @@ export const TasksListWrapper = styled.section`
     grid-template-columns: 33.3% 33.3% 33.3%;
     column-gap: 0;
   }
+  @media ${devices.laptop} {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
 `
 export const Spinner = styled.div`
   border: 7px solid rgb(0, 0, 0, 0.1);
   width: 80px;
   height: 80px;
-  margin: auto;
-  margin-top: 160px;
+  top: calc(50% - 40px);
+  left: calc(50% - 40px);
+  margin-top: 10em;
   border-radius: 50%;
-  border-left-color: ${colors.brown};
-  animation: spin 1s cubic-bezier(0.42, 0.18, 0.33, 0.71) infinite;
+  border-left-color: ${colors.completed};
+  animation: spin 1s cubic-bezier(1, 1.33, 0.59, -0.33) infinite;
+  -webkit-animation: spin 1s cubic-bezier(1, 1.33, 0.59, -0.33) infinite;
+  position: absolute;
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 `

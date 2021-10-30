@@ -1,28 +1,17 @@
-import * as actions from "./constants-actions"
-import axios from "axios"
+import * as actions from './constants-actions'
 
-const setTasks = (quantity) => async (dispatch) => {
-  const { data } = await axios.get(
-    `http://localhost:3000/tasks?quantity=${quantity}`,
-  )
-
+const setTasks = (tasks) => (dispatch) => {
   dispatch({
     type: actions.SET_TASKS,
-    payload: data.tasks,
+    payload: tasks,
   })
 }
-const updateTask = (taskId) => async (dispatch) => {
-  const response = await axios.put(
-    `http://localhost:3000/tasks?taskId=${taskId}`,
-  )
-  if (response.status === 200) {
-    dispatch({
-      type: actions.UPDATE_TASKS,
-      payload: taskId,
-    })
-  } else {
-    return
-  }
+
+const updateTask = (taskId) => (dispatch) => {
+  dispatch({
+    type: actions.UPDATE_TASKS,
+    payload: taskId,
+  })
 }
 
 export { setTasks, updateTask }

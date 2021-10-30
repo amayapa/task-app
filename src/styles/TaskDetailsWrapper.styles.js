@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components"
-import { colors } from "./globalStyles"
+import styled, { css } from 'styled-components'
+import { Button, colors } from './globalStyles'
 
 const activeOverlay = css`
   position: fixed;
@@ -34,7 +34,7 @@ export const TaskDetailsWrapper = styled.div`
   border-radius: 10px;
   padding: 0.5em;
   padding-left: 1em;
-  display: ${({ open }) => (open ? "initial" : "none")};
+  display: ${({ open }) => (open ? 'initial' : 'none')};
   transform: translate(-50%, -50%) scale(${({ open }) => (open ? 1 : 0)});
   border: solid 2px ${colors.borderColor};
   display: flex;
@@ -43,7 +43,7 @@ export const TaskDetailsWrapper = styled.div`
   gap: 1em;
   & p {
     margin: 0;
-    color: ${({ done }) => (done ? "green" : colors.text)};
+    color: ${({ done }) => (done ? colors.completed : colors.text)};
     font-size: 1.5em;
     font-weight: 500;
   }
@@ -61,3 +61,9 @@ export const Actions = styled.div`
 export const Overlay = styled.div`
   ${({ open }) => (open ? activeOverlay : inactiveOverlay)}
 `
+
+export const CompleteButton = styled(Button)`
+  color: ${({ disabled }) => (disabled ? colors.completed : colors.text)};
+`
+
+export { Button }
