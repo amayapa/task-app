@@ -1,4 +1,4 @@
-import * as actions from "./constants-actions"
+import * as actions from './constants-actions'
 
 const initialState = {
   tasks: [],
@@ -13,7 +13,7 @@ export default function taskReducer(state = initialState, action) {
     case actions.UPDATE_TASKS:
       const taskId = action.payload
       let taskToComplete = state.tasks.find((task) => task.id === taskId)
-      taskToComplete.status = "COMPLETED"
+      taskToComplete.status = 'COMPLETED'
       return {
         tasks: [...state.tasks],
       }

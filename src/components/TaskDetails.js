@@ -1,23 +1,28 @@
-import React, { useEffect } from "react"
-import PropTypes from "prop-types"
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import {
   Actions,
+  CompleteButton,
   Overlay,
   TaskDetailsWrapper,
-} from "../styles/TaskDetailsWrapper.styles.js"
-import { Button } from "../styles/header.styles.js"
-import { updateTask } from "../store/tasks.actions.js"
-import { useDispatch } from "react-redux"
+  Button,
+} from '../styles/TaskDetailsWrapper.styles.js'
+import { updateTask } from '../store/tasks.actions.js'
+import { useDispatch } from 'react-redux'
+import { setTaskAsCompleted } from '../api/tasks.js'
+import { colors } from '../styles/globalStyles.js'
+import Swal from 'sweetalert2'
 
 const TaskDetails = (props) => {
   const dispatch = useDispatch()
   const { id, title, status, isModalOpen, setTaskToDetail, setIsModalOpen } =
     props
+  const isCompletedTask = status === 'COMPLETED'
 
   useEffect(() => {
-    document.addEventListener("keydown", closeModal, false)
+    document.addEventListener('keydown', closeModal, false)
     return () => {
-      document.removeEventListener("keydown", closeModal, false)
+      document.removeEventListener('keydown', closeModal, false)
     }
     //eslint-disable-next-line
   }, [])
@@ -27,17 +32,32 @@ const TaskDetails = (props) => {
     setIsModalOpen(!isModalOpen)
   }
 
+  const completeTask = async () => {
+    try {
+      const response = await setTaskAsCompleted(id)
+      if (response.status === 200) {
+        dispatch(updateTask(response.data.task.id))
+        closeModal()
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        text: error,
+        confirmButtonColor: colors.bgPrimary,
+      }).then(() => closeModal())
+    }
+  }
+
   return (
     <>
-      <TaskDetailsWrapper
-        open={isModalOpen}
-        done={status === "COMPLETED" && true}
-      >
+      <TaskDetailsWrapper open={isModalOpen} done={isCompletedTask}>
         <p>
           <span>Task #{id}</span> - <span>{title}</span>
         </p>
         <Actions>
-          <Button onClick={() => dispatch(updateTask(id))}>Complete</Button>
+          <CompleteButton disabled={isCompletedTask} onClick={completeTask}>
+            {isCompletedTask ? 'Completed' : 'Complete'}
+          </CompleteButton>
           <Button onClick={closeModal}>Close</Button>
         </Actions>
       </TaskDetailsWrapper>
@@ -49,10 +69,10 @@ const TaskDetails = (props) => {
 TaskDetails.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   setIsModalOpen: PropTypes.func.isRequired,
   setTaskToDetail: PropTypes.func.isRequired,
-  status: PropTypes.string.isRequired,
 }
 
 export default TaskDetails

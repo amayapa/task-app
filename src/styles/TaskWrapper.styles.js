@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { colors } from "./globalStyles"
+import styled from 'styled-components'
+import { colors } from './globalStyles'
 
 export const TaskWrapper = styled.div`
   padding: 1em 2em 1em 0.5em;
@@ -14,9 +14,12 @@ export const TaskWrapper = styled.div`
   font-size: 1.5em;
   cursor: pointer;
   & p {
-    color: ${({ done }) => (done ? "green" : colors.text)};
+    color: ${({ done }) => (done ? 'green' : colors.text)};
     margin: 0;
     font-weight: 500;
+  }
+  & p:first-child {
+    text-decoration: ${({ done }) => (done ? 'line-through' : 'none')};
   }
   & p:last-child {
     white-space: nowrap;
