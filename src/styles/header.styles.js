@@ -2,7 +2,12 @@ import styled from 'styled-components'
 import { Button, colors, devices, inputCommonStyles } from './globalStyles'
 
 export const HeaderWrapper = styled.header`
-  background-color: #c3c3c340;
+  background-color: #e9e9e9;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
   & > div {
     margin: 0 auto;
     padding: 1em 2em;
@@ -16,6 +21,7 @@ export const HeaderWrapper = styled.header`
   @media ${devices.mobileL} {
     & > div {
       flex-direction: row;
+      height: 100px;
     }
   }
 `
