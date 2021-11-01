@@ -1,18 +1,26 @@
 import styled from 'styled-components'
 import { colors, devices } from './globalStyles'
 
+export const TasksWrapper = styled.section`
+  margin-top: 150px;
+  position: relative;
+  padding-top: 1em;
+  @media ${devices.mobileL} {
+    margin-top: 100px;
+  }
+`
+
 export const Title = styled.h2`
   text-align: center;
-  margin-bottom: 0;
+  margin: 0;
   color: ${colors.text};
   text-transform: uppercase;
   @media ${devices.tablet} {
     font-size: 2.5em;
-    margin-bottom: revert;
   }
 `
 
-export const TasksListWrapper = styled.section`
+export const TasksListContent = styled.section`
   display: grid;
   place-items: center;
   gap: 1em;

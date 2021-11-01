@@ -1,9 +1,9 @@
-import { persistCombineReducers } from "redux-persist"
-import TasksReducer from "./tasks.reducer"
-import storage from "redux-persist/lib/storage"
+import { persistCombineReducers } from 'redux-persist'
+import TasksReducer from './tasks.reducer'
+import storage from 'redux-persist/lib/storage'
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage: storage,
 }
 

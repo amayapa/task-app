@@ -7,7 +7,7 @@ import {
   TaskDetailsWrapper,
   Button,
 } from '../styles/TaskDetailsWrapper.styles.js'
-import { updateTask } from '../store/tasks.actions.js'
+import { setTasks, updateTask } from '../store/tasks.actions.js'
 import { useDispatch } from 'react-redux'
 import { setTaskAsCompleted } from '../api/tasks.js'
 import { colors } from '../styles/globalStyles.js'
@@ -40,11 +40,20 @@ const TaskDetails = (props) => {
         closeModal()
       }
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        text: error,
-        confirmButtonColor: colors.bgPrimary,
-      }).then(() => closeModal())
+      if (error.response?.status === 404) {
+        dispatch(setTasks([]))
+        Swal.fire({
+          icon: 'error',
+          text: `${error.response.data.message}\nRequest new ones`,
+          confirmButtonColor: colors.bgPrimary,
+        }).then(() => closeModal())
+      } else {
+        Swal.fire({
+          icon: 'error',
+          text: error,
+          confirmButtonColor: colors.bgPrimary,
+        }).then(() => closeModal())
+      }
     }
   }
 

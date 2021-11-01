@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import {
   Spinner,
-  TasksListWrapper,
+  TasksListContent,
   Title,
+  TasksWrapper,
 } from '../styles/tasks-list.styles.js'
 import Task from './Task.js'
 import TaskDetails from './TaskDetails.js'
@@ -17,12 +18,12 @@ const TasksList = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
-    <div style={{ position: 'relative' }}>
+    <TasksWrapper style={{ position: 'relative' }}>
       <Title>Task List</Title>
       {isFetching ? (
         <Spinner />
       ) : (
-        <TasksListWrapper>
+        <TasksListContent>
           {tasks.map(({ id, title, status }) => (
             <Task
               key={id}
@@ -33,7 +34,7 @@ const TasksList = (props) => {
               setIsModalOpen={setIsModalOpen}
             />
           ))}
-        </TasksListWrapper>
+        </TasksListContent>
       )}
       {isModalOpen && (
         <TaskDetails
@@ -45,7 +46,7 @@ const TasksList = (props) => {
           setIsModalOpen={setIsModalOpen}
         />
       )}
-    </div>
+    </TasksWrapper>
   )
 }
 
